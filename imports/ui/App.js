@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
+
+import { withTracker } from 'meteor/react-meteor-data';
+import { withRouter } from 'react-router-dom';
+import { Urls } from '../api/collections';
 
 
-class Urls extends Component {
+class App extends Component {
 
     state = {urls: []}
 
@@ -9,6 +14,7 @@ class Urls extends Component {
         e.preventDefault();
         const url = e.target.originalUrl.value.trim()
         console.log(url)
+        Meteor.call('urls.insert', url)
     }
     render() {
         return (
@@ -26,4 +32,12 @@ class Urls extends Component {
     }
 };
 
-export default Urls
+
+export default withRouter(
+    withTracker(() => {
+        Meteor.subscribe('urls');
+        console.log("With router")
+        return {urls: Urls.find().fetch()}
+    })(App)
+);
+
