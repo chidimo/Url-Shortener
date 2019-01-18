@@ -19,11 +19,9 @@ Meteor.methods({
             throw new Meteor.Error('Url already exists.')
         }
 
-        Urls.insert({
-            url: url,
-            short_url: "abc",
-            createdAt: new Date(),
-        });
+        Urls.insert({url: url, createdAt: new Date()});
 
+        const u = Urls.findOne({url: url})
+        Urls.update({url: url}, {$set: {short_url: u._id}});
     },
 });
