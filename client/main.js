@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 import App from '../imports/ui/App';
+import '../imports/api/collections';
 
 
 Meteor.startup(() => {
