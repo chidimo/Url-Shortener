@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function Url(props) {
-    const { url } = props
-    return (
-        <li><a href={url.url} target="_blank">{url.short_url}</a></li>
-    )
+import * as utilsAPI from '../api/utilsAPI'
+
+class Url extends Component {
+    copyOriginalUrl = (url) => {
+        utilsAPI.copyText(url)
+    }
+
+    render() {
+        const { url } = this.props
+        return (
+            <li>
+                <a href={url.url} target="_blank">{url.short_url}</a>
+    
+                <span onClick={() => this.copyOriginalUrl(url.url)}
+                    className="glyphicon glyphicon-copy pull-right" aria-hidden="true">
+                </span>
+            
+            </li>
+        )
+    }
 }
 
 export default Url

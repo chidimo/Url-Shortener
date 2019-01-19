@@ -16,6 +16,7 @@ Meteor.methods({
         check(url, String);
 
         if (Urls.findOne({url: url})) {
+            alert('This url already exists')
             throw new Meteor.Error('Url already exists.')
         }
 
