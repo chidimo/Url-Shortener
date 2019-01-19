@@ -6,14 +6,16 @@ import { Meteor } from 'meteor/meteor';
 export default class DomainsJs extends Component {
 
     render() {
-        const { domains } = this.props;
+        // const domains = this.props.domains;
+        const { domains, filterFunc } = this.props;
         return (
             <div className="">
                 <h4>Domains</h4>
 
                     {
                         domains.map((domain) => (
-                            <button 
+                            <button
+                                onClick={() => filterFunc(domain.domain)}
                                 className="btn btn-primary btn-sm" 
                                 key={domain._id}>{domain.domain}
                             </button>
