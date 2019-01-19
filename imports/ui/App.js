@@ -7,7 +7,6 @@ import { withRouter } from 'react-router-dom';
 import { Urls, Domains } from '../api/collections';
 
 import Url from './Url';
-import Statistics from './Statistics';
 import DomainsJs from './DomainsJs';
 import * as utilsAPI from '../api/utilsAPI';
 
@@ -29,6 +28,10 @@ class App extends Component {
         this.setState({filteredUrls: filteredUrls})
     };
 
+    removeFilter = () => {
+        this.setState({filteredUrls: []})
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const url = e.target.originalUrl.value.trim()
@@ -39,6 +42,7 @@ class App extends Component {
 
     render() {
         const {urls, number_of_urls, domains, filteredUrls} = this.state
+        const msg1 = `Site stats: shortened ${number_of_urls} urls from ${domains.length} domains`
         
         return (
             <div className="container app">
@@ -51,7 +55,13 @@ class App extends Component {
                 </header>
 
                 <div className="statistics">
-                    <Statistics number_of_urls={number_of_urls} number_domains={domains.length}/>
+                    {
+                        filteredUrls.length === 0
+                        ?
+                        <p>{msg1}</p>
+                        :
+                        <p></p>
+                    }
                 </div>
 
                 <form 
@@ -65,11 +75,16 @@ class App extends Component {
                 </form>
                 <div className="row">
     
-                    <div className="col-sm-8">
+                    <div className="col-sm-6">
                         <h4>Urls</h4>
+                        <button
+                            className="btn btn-primary btn-sm"
+                            onClick={() => this.removeFilter()}
+                        >
+                            Show all
+                        </button>
 
                         {
-
                             filteredUrls.length === 0
                             ?
                             urls.map((url) => (
@@ -79,11 +94,10 @@ class App extends Component {
                             filteredUrls.map((url) => (
                                 <Url key={url._id} url={url}/>
                             ))
-
                         }
                     </div>
 
-                    <div className="col-sm-4">
+                    <div className="col-sm-6">
                         <DomainsJs domains={domains} filterFunc={(domain) => this.filterByDomain(domain)}/>
                     </div>
                 </div>
