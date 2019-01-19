@@ -8,12 +8,23 @@ import { Urls, Domains } from '../api/collections';
 
 import Url from './Url';
 import Statistics from './Statistics';
+import DomainsJs from './DomainsJs';
 import * as utilsAPI from '../api/utilsAPI';
 
 
 class App extends Component {
 
-    state = {urls: []}
+    state = {urls: [], number_of_urls: 0, domains: []}
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("Next ", nextProps.urls)
+        console.log("prev ", prevState)
+        return {
+            urls: nextProps.urls,
+            number_of_urls: nextProps.number_of_urls,
+            domains: nextProps.domains
+        }
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -24,10 +35,7 @@ class App extends Component {
     }
 
     render() {
-
-        const {urls, number_urls, domains} = this.props
-
-        console.log("****** ',", domains)
+        const {urls, number_of_urls, domains} = this.state
 
         return (
             <div className="container app">
@@ -40,7 +48,7 @@ class App extends Component {
                 </header>
 
                 <div className="statistics">
-                    <Statistics number_urls={number_urls} number_domains={10}/>
+                    <Statistics number_of_urls={number_of_urls} number_domains={domains.length}/>
                 </div>
 
                 <form 
@@ -52,14 +60,22 @@ class App extends Component {
                         ref="urlInput"
                     />
                 </form>
+                <div className="row">
+    
+                    <div className="col-sm-8">
+                        <h4>Urls</h4>
 
-                <ul className="">
-                    {
-                        urls.map((url) => (
-                            <Url key={url._id} url={url}/>
-                        ))
-                    }
-                </ul>
+                        {
+                            urls.map((url) => (
+                                <Url key={url._id} url={url}/>
+                            ))
+                        }
+                    </div>
+
+                    <div className="col-sm-4">
+                        <DomainsJs domains={domains}/>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -72,7 +88,7 @@ export default withRouter(
         const urls_data = Urls.find()
         return {
             urls: urls_data.fetch(),
-            number_urls: urls_data.count(),
+            number_of_urls: urls_data.count(),
             domains: Domains.find().fetch()
         }
     })(App)
