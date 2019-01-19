@@ -13,12 +13,15 @@ export default class DomainsJs extends Component {
 
                     {
                         domains.map((domain) => (
-                            <p key={domain._id}>{domain.domain}</p>
+                            <button 
+                                className="btn btn-primary btn-sm" 
+                                key={domain._id}>{domain.domain}
+                            </button>
                         ))
                     }
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
 
