@@ -4,7 +4,7 @@
 
 A url shortening service
 
-On the web: <>
+On the web: <https://basic-url-shortener.herokuapp.com>
 
 Android app: <>
 
