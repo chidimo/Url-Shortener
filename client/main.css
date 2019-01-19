@@ -34,7 +34,7 @@ form {
 p {
   position: relative;
   list-style: none;
-  padding: 5px;
+  margin-bottom: 7px;
   border-bottom: #eee solid 1px;
 }
 
@@ -47,4 +47,9 @@ p {
     width: 150px;
     clear: both;
   }
+}
+
+.btn {
+  margin-bottom: 7px;
+  width: 100%;
 }
