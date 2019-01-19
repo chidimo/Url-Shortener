@@ -14,17 +14,20 @@ import * as utilsAPI from '../api/utilsAPI';
 
 class App extends Component {
 
-    state = {urls: [], number_of_urls: 0, domains: []}
+    state = {urls: [], number_of_urls: 0, domains: [], filteredUrls:[]}
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("Next ", nextProps.urls)
-        console.log("prev ", prevState)
+    static getDerivedStateFromProps(props, prevState) {
         return {
-            urls: nextProps.urls,
-            number_of_urls: nextProps.number_of_urls,
-            domains: nextProps.domains
+            urls: props.urls,
+            number_of_urls: props.number_of_urls,
+            domains: props.domains
         }
     }
+
+    filterByDomain = (domain) => {
+        const filteredUrls = this.state.urls.filter((url) => (url.domain === domain))
+        this.setState({filteredUrls: filteredUrls})
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -35,8 +38,8 @@ class App extends Component {
     }
 
     render() {
-        const {urls, number_of_urls, domains} = this.state
-
+        const {urls, number_of_urls, domains, filteredUrls} = this.state
+        
         return (
             <div className="container app">
                 <header>
@@ -66,14 +69,22 @@ class App extends Component {
                         <h4>Urls</h4>
 
                         {
+
+                            filteredUrls.length === 0
+                            ?
                             urls.map((url) => (
                                 <Url key={url._id} url={url}/>
                             ))
+                            :
+                            filteredUrls.map((url) => (
+                                <Url key={url._id} url={url}/>
+                            ))
+
                         }
                     </div>
 
                     <div className="col-sm-4">
-                        <DomainsJs domains={domains}/>
+                        <DomainsJs domains={domains} filterFunc={(domain) => this.filterByDomain(domain)}/>
                     </div>
                 </div>
             </div>
