@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { Urls } from '../api/collections';
 
 import Url from './Url';
+import Statistics from './Statistics';
+import * as utilsAPI from '../api/utilsAPI';
 
 
 class App extends Component {
@@ -22,7 +24,7 @@ class App extends Component {
 
     render() {
 
-        const {urls} = this.props
+        const {urls, number_urls, number_domains} = this.props
 
         return (
             <div className="container app">
@@ -33,6 +35,11 @@ class App extends Component {
                         Frontend: <code>React</code>
                     </p>
                 </header>
+
+                <div className="statistics">
+                    <Statistics number_urls={number_urls} number_domains={number_domains}/>
+                </div>
+
                 <form 
                     onSubmit={this.handleSubmit}>
                     <input 
@@ -58,6 +65,15 @@ class App extends Component {
 export default withRouter(
     withTracker(() => {
         Meteor.subscribe('urls');
-        return {urls: Urls.find({}, {sort: {createdAt: -1}}).fetch()}
+        const urls_data = Urls.find()
+        return {
+            urls: urls_data.fetch(),
+            number_urls: urls_data.count(),
+            number_domains: 10
+        }
     })(App)
 );
+
+// db.urls.group({ key: {domain: 1}, initial: {sum:0}, reduce: function(url, prev) { prev.sum += 1; } })
+
+// return a list
