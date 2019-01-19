@@ -4,11 +4,11 @@ import { Meteor } from 'meteor/meteor';
 
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { Urls, Domains } from '../api/collections';
+import { Urls } from '../api/urls';
+import { Domains } from '../api/domains';
 
 import Url from './Url';
 import DomainsJs from './DomainsJs';
-import * as utilsAPI from '../api/utilsAPI';
 
 
 class App extends Component {

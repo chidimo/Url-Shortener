@@ -5,16 +5,13 @@ import { check } from 'meteor/check';
 import * as utilsAPI from './utilsAPI';
 
 export const Urls = new Mongo.Collection('urls');
-export const Domains = new Mongo.Collection('domains')
 
 
 if (Meteor.isServer) {
     Meteor.publish('urls', function publishUrls(){
         return Urls.find({}, {sort: {createdAt: -1}});
     });
-    Meteor.publish('domains', function publishDomains(){
-        return Domains.find({});
-    });
+
 }
 
 Meteor.methods({
@@ -35,9 +32,4 @@ Meteor.methods({
         const u = Urls.findOne({url: url})
         Urls.update({url: url}, {$set: {short_url: u._id}});
     },
-
-    'domains.insert'(url) {
-        const domain = utilsAPI.getDomain(url)
-        Domains.upsert({domain:domain}, {domain:domain})
-    }
 });
