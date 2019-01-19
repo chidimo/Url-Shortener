@@ -10,16 +10,15 @@ class Url extends Component {
     render() {
         const { url } = this.props
         return (
-            <li>
+            <p>
                 <a href={url.url} target="_blank">{url.short_url}</a>
     
                 <span onClick={() => this.copyOriginalUrl(url.url)}
                     className="glyphicon glyphicon-copy pull-right" aria-hidden="true">
                 </span>
-            
-            </li>
-        )
-    }
+            </p>
+        );
+    };
 }
 
 export default Url
