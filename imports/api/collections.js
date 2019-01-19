@@ -7,9 +7,10 @@ import * as utilsAPI from './utilsAPI';
 export const Urls = new Mongo.Collection('urls');
 
 
+
 if (Meteor.isServer) {
     Meteor.publish('urls', function publishUrls(){
-        return Urls.find({});
+        return Urls.find({}, {sort: {createdAt: -1}});
     });
 }
 
