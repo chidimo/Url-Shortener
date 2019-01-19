@@ -11,6 +11,7 @@ export default class DomainsJs extends Component {
         return (
             <div className="">
                 <h4>Domains</h4>
+                <p>Click button to filter</p>
 
                     {
                         domains.map((domain) => (
