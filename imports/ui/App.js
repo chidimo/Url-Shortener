@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
-import { Urls } from '../api/collections';
+import { Urls, Domains } from '../api/collections';
 
 import Url from './Url';
 import Statistics from './Statistics';
@@ -20,11 +20,14 @@ class App extends Component {
         const url = e.target.originalUrl.value.trim()
         Meteor.call('urls.insert', url)
         ReactDOM.findDOMNode(this.refs.urlInput).value = ''; // clear form
+        Meteor.call('domains.insert', url)
     }
 
     render() {
 
-        const {urls, number_urls, number_domains} = this.props
+        const {urls, number_urls, domains} = this.props
+
+        console.log("****** ',", domains)
 
         return (
             <div className="container app">
@@ -37,7 +40,7 @@ class App extends Component {
                 </header>
 
                 <div className="statistics">
-                    <Statistics number_urls={number_urls} number_domains={number_domains}/>
+                    <Statistics number_urls={number_urls} number_domains={10}/>
                 </div>
 
                 <form 
@@ -65,11 +68,12 @@ class App extends Component {
 export default withRouter(
     withTracker(() => {
         Meteor.subscribe('urls');
+        Meteor.subscribe('domains');
         const urls_data = Urls.find()
         return {
             urls: urls_data.fetch(),
             number_urls: urls_data.count(),
-            number_domains: 10
+            domains: Domains.find().fetch()
         }
     })(App)
 );
