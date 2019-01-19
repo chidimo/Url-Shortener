@@ -6,6 +6,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter } from 'react-router-dom';
 import { Urls } from '../api/collections';
 
+import Url from './Url';
+
 
 class App extends Component {
 
@@ -19,10 +21,17 @@ class App extends Component {
     }
 
     render() {
+
+        const {urls} = this.props
+
         return (
             <div className="container app">
                 <header>
                     <h1>Url Shortener</h1>
+                    <p>A basic url shortening service<br/>
+                        Backend: <code>Meteor</code><br/>
+                        Frontend: <code>React</code>
+                    </p>
                 </header>
                 <form 
                     onSubmit={this.handleSubmit}>
@@ -33,6 +42,14 @@ class App extends Component {
                         ref="urlInput"
                     />
                 </form>
+
+                <ul className="">
+                    {
+                        urls.map((url) => (
+                            <Url key={url._id} url={url}/>
+                        ))
+                    }
+                </ul>
             </div>
         )
     }
@@ -41,6 +58,6 @@ class App extends Component {
 export default withRouter(
     withTracker(() => {
         Meteor.subscribe('urls');
-        return {urls: Urls.find().fetch()}
+        return {urls: Urls.find({}, {sort: {createdAt: -1}}).fetch()}
     })(App)
 );
