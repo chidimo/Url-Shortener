@@ -8,7 +8,6 @@ export const Urls = new Mongo.Collection('urls');
 export const Domains = new Mongo.Collection('domains')
 
 
-
 if (Meteor.isServer) {
     Meteor.publish('urls', function publishUrls(){
         return Urls.find({}, {sort: {createdAt: -1}});
