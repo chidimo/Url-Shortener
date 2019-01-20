@@ -34,7 +34,7 @@ class App extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const url = e.target.originalUrl.value.trim()
+        const url = e.target.inputURL.value.trim()
         Meteor.call('urls.insert', url)
         ReactDOM.findDOMNode(this.refs.urlInput).value = ''; // clear form
         Meteor.call('domains.insert', url)
@@ -80,7 +80,7 @@ class App extends Component {
                     onSubmit={this.handleSubmit}>
                     <input 
                         className="form-control" 
-                        type="url" name="originalUrl" 
+                        type="url" name="inputURL" 
                         placeholder="Enter url to shorten."
                         ref="urlInput"
                     />
