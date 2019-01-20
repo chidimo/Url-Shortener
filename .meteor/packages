@@ -20,3 +20,5 @@ react-meteor-data
 twbs:bootstrap
 static-html
 meteortesting:mocha
+xolvio:cleaner
+dburles:factory
