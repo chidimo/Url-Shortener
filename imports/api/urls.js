@@ -28,8 +28,5 @@ Meteor.methods({
             domain: utilsAPI.getDomain(url),
             createdAt: new Date()
         });
-
-        const u = Urls.findOne({url: url})
-        Urls.update({url: url}, {$set: {short_url: u._id}});
     },
 });
