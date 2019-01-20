@@ -40,18 +40,30 @@ class App extends Component {
         Meteor.call('domains.insert', url)
     }
 
+    handleRedirect = () =>{
+        console.log(" Handling redirect ")
+        const urlId = location.pathname.replace("/", "")
+        if (urlId) {
+            console.log("Redirect")
+            const url_obj = Urls.findOne({_id: urlId})
+            if (url_obj) {
+                console.log(url_obj.url)
+                window.location.replace(url_obj.url)
+            }
+        }
+    }
+
     render() {
+        this.handleRedirect();
+
         const {urls, number_of_urls, domains, filteredUrls} = this.state
-        const msg1 = `Site stats: shortened ${number_of_urls} urls from ${domains.length} domains`
+        const msg1 = `Shortened ${number_of_urls} urls from ${domains.length} domains`
         
         return (
             <div className="container app">
                 <header>
                     <h1>Url Shortener</h1>
-                    <p>A basic url shortening service<br/>
-                        Backend: <code>Meteor</code><br/>
-                        Frontend: <code>React</code>
-                    </p>
+                    <p>Shorten your URLs</p>
                 </header>
 
                 <div className="statistics">
@@ -75,7 +87,7 @@ class App extends Component {
                 </form>
                 <div className="row">
     
-                    <div className="col-sm-6">
+                    <div className="col-sm-8">
                         <h4>Urls</h4>
                         <button
                             className="btn btn-primary btn-sm"
@@ -97,7 +109,7 @@ class App extends Component {
                         }
                     </div>
 
-                    <div className="col-sm-6">
+                    <div className="col-sm-4">
                         <DomainsJs domains={domains} filterFunc={(domain) => this.filterByDomain(domain)}/>
                     </div>
                 </div>
@@ -118,7 +130,3 @@ export default withRouter(
         }
     })(App)
 );
-
-// db.urls.group({ key: {domain: 1}, initial: {sum:0}, reduce: function(url, prev) { prev.sum += 1; } })
-
-// return a list
