@@ -41,13 +41,10 @@ class App extends Component {
     }
 
     handleRedirect = () =>{
-        console.log(" Handling redirect ")
         const urlId = location.pathname.replace("/", "")
         if (urlId) {
-            console.log("Redirect")
             const url_obj = Urls.findOne({_id: urlId})
             if (url_obj) {
-                console.log(url_obj.url)
                 window.location.replace(url_obj.url)
             }
         }
