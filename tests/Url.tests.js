@@ -15,6 +15,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('<Url />', () => {
     it('should render', () => {
+        global.window = { location : { host : 'https://basic-url-shortener.herokuapp.com' } };
         const u = faker.internet.url()
         const url = Factory.build('url', {
             url: u, domain: utilsAPI.getDomain(u)
