@@ -13,7 +13,7 @@ import DomainsJs from './DomainsJs';
 
 class App extends Component {
 
-    state = {urls: [], number_of_urls: 0, domains: [], filteredUrls:[]}
+    state = {urls: [], number_of_urls: 0, domains: [], filteredUrls:[], filterMsg:""}
 
     static getDerivedStateFromProps(props, prevState) {
         return {
@@ -25,11 +25,13 @@ class App extends Component {
 
     filterByDomain = (domain) => {
         const filteredUrls = this.state.urls.filter((url) => (url.domain === domain))
-        this.setState({filteredUrls: filteredUrls})
+        this.setState({filteredUrls: filteredUrls,
+            filterMsg: `${Urls.find({domain:domain}).count()} URL(s) from ${domain}`
+        })
     };
 
     removeFilter = () => {
-        this.setState({filteredUrls: []})
+        this.setState({filteredUrls: [], filterMsg: ""})
     }
 
     handleSubmit = (e) => {
@@ -53,8 +55,8 @@ class App extends Component {
     render() {
         this.handleRedirect();
 
-        const {urls, number_of_urls, domains, filteredUrls} = this.state
-        const msg1 = `Shortened ${number_of_urls} urls from ${domains.length} domains`
+        const {urls, number_of_urls, domains, filteredUrls, filterMsg } = this.state
+        const msg1 = `${number_of_urls} URLs from ${domains.length} domains`
         
         return (
             <div className="container app">
@@ -69,7 +71,7 @@ class App extends Component {
                         ?
                         <p>{msg1}</p>
                         :
-                        <p></p>
+                        <p>{filterMsg}</p>
                     }
                 </div>
 
@@ -83,7 +85,6 @@ class App extends Component {
                     />
                 </form>
                 <div className="row">
-    
                     <div className="col-sm-8">
                         <h4>Urls</h4>
                         <button
