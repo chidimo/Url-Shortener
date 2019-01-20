@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import * as utilsAPI from '../api/utilsAPI'
 
 class Url extends Component {
-    copyOriginalUrl = (url) => {
+    copyURL = (url) => {
         utilsAPI.copyText(url)
     }
 
@@ -15,7 +15,7 @@ class Url extends Component {
                     {`${window.location}${url._id}`}
                 </a>
     
-                <span onClick={() => this.copyOriginalUrl(url.url)}
+                <span onClick={() => this.copyURL(url.url)}
                     className="glyphicon glyphicon-copy pull-right" aria-hidden="true">
                 </span>
             </p>
