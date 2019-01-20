@@ -10,9 +10,9 @@ class Url extends Component {
     render() {
         const { url } = this.props
         return (
-            <p>
-                <a href={`${window.location}${url._id}`}>
-                    {`${window.location}${url._id}`}
+            <p className="url-item">
+                <a href={`https://basic-url-shortener.herokuapp.com`}>
+                    {`https://basic-url-shortener.herokuapp.com`}
                 </a>
     
                 <span onClick={() => this.copyURL(url.url)}
