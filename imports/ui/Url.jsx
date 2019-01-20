@@ -11,7 +11,9 @@ class Url extends Component {
         const { url } = this.props
         return (
             <p>
-                <a href={url.url} target="_blank">{url.short_url}</a>
+                <a href={`${window.location}${url._id}`}>
+                    {`${window.location}${url._id}`}
+                </a>
     
                 <span onClick={() => this.copyOriginalUrl(url.url)}
                     className="glyphicon glyphicon-copy pull-right" aria-hidden="true">
