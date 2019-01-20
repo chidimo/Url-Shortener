@@ -36,8 +36,8 @@ You can filter by domain simply by clicking on a domain button.
 1. A few tests is written for the app and can be run with the following command `meteor test --once --full-app --driver-package meteortesting:mocha`
 1. Five improvements
 
-    1. The system maintains a collection of root domains where each is unique.
-    1. It is possible to filter URLs based on their root domains.
-    1. The application has an android build which reads from the same database as the desktop app.
+    1. The system maintains a collection of unique root domains.
+    1. Filter URLs by their root domains and display associated statistics.
+    1. Create an android build of the application.
 
 1. A docker image is not included, but the app is accessible here <https://basic-url-shortener.herokuapp.com>
