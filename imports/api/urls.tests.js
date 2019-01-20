@@ -10,7 +10,7 @@ import * as utilsAPI from './utilsAPI';
 if (Meteor.isServer) {
     describe('Urls', () => {
         describe('methods', () => {
-            let url = "https://forums.meteor.com/"
+            let url = "https://meteor.com/"
     
             beforeEach(() => {
             Urls.remove({});
