@@ -1,6 +1,7 @@
 import assert from 'assert';
 
 import './urls.tests.js';
+import './App.tests.js'
 import './Url.tests.js'
 
 
