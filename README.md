@@ -38,6 +38,6 @@ You can filter by domain simply by clicking on a domain button.
 
     1. The system maintains a collection of unique root domains.
     1. Filter URLs by their root domains and display associated statistics.
-    1. Create an android build of the application.
+    1. It is possible to create an android and iOS build of the application.
 
 1. A docker image is not included, but the app is accessible here <https://basic-url-shortener.herokuapp.com>
